@@ -8,9 +8,9 @@ subject = "SPAM SPAM SPAM"
 #Email sender
 sender = "getspammedbot555@gmail.com"
 #Email of target
-target = "getspammedbot555@gmail.com"
+target = input("target email: ")
 #Password of sender
-password = input("Password: ")
+password = input("Sender password: ")
 #Number of emails sent to target
 spam_level = int(input("Number of emails: "))
 
@@ -28,12 +28,14 @@ for i in range(1, 10):
         bodys.append(body)
 
 
+#Sending the emails
 print("Starting EmailSpam BOT . . .")
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
     total = 0
     while total != spam_level:
         server.login(sender, password)
+        #Get random spam msg
         msg.set_content(bodys[random.randint(0, len(bodys) - 1)])
         server.sendmail(sender, target, msg.as_string())
         total += 1
