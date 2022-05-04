@@ -1,3 +1,4 @@
+from multiprocessing.connection import wait
 import smtplib
 import ssl
 from email.message import EmailMessage
@@ -32,9 +33,9 @@ for i in range(1, 10):
 print("Starting EmailSpam BOT . . .")
 context = ssl.create_default_context()
 with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    server.login(sender, password)
     total = 0
     while total != spam_level:
-        server.login(sender, password)
         #Get random spam msg
         msg.set_content(bodys[random.randint(0, len(bodys) - 1)])
         server.sendmail(sender, target, msg.as_string())
